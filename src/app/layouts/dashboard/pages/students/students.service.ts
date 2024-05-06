@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { IStudent } from "./models";
 import { Observable, of } from "rxjs";
+import { HttpClient } from "@angular/common/http";
 
 const STUDENTS_ARRAY: IStudent[] = [
     {
@@ -25,7 +26,8 @@ const STUDENTS_ARRAY: IStudent[] = [
 
 @Injectable({ providedIn: 'root'})
 export class StudentsService {
+  constructor(private httpClient: HttpClient ) {}
     getStudentsList(): Observable<IStudent[]> {
-        return of(STUDENTS_ARRAY)
+        return this.httpClient.get<IStudent[]>("http://localhost:3000/students")
     }
 }
